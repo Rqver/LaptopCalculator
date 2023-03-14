@@ -26,45 +26,6 @@
  *   reviews: 12
  */
 
-// Would you prefer Windows or MacOS? (os)
-
-// IF WINDOWS:
-//      What is your preferred laptop manufacturer? (brand)
-//      You can select multiple. Select continue if you have no preference
-
-// IF WINDOWS:
-//      What is your preferred CPU brand? (processor_brand) - AMD or Intel
-//      Select continue if you have no preference
-
-// IF WINDOWS:
-//      What is your preferred CPU brand?
-//      Select continue if you have no preference.
-
-
-// IF WINDOWS:
-//      Do you require a touchscreen?
-//      Select continue if you have no preference.
-
-// How much ram do you require?
-// Select continue if you have no requirements.
-
-// How much storage do you require (HDD/SSD)?
-// Select continue if you have no requirements.
-
-// What is your budget?
-// Select continue if you have no requirements
-
-
-
-
-
-// Prefered Brand
-// Processor Brand (AMD/Intel)
-// Minimum Ram
-// SSD/hdd
-// os
-
-
 import express from 'express';
 import {MongoClient} from 'mongodb';
 import path from 'path';
@@ -74,33 +35,83 @@ const client = new MongoClient(uri);
 const app = express();
 const port = 3000;
 
+// Express Setup
 app.use(express.static('public'));
+app.use(express.json())
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
+    next()
+})
+
+// Routes Setup
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.post('/', async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
+    const database = client.db('laptops');
+    const laptops = database.collection('laptops');
+
+
+    const details = req.body
+    const os = details.os
+    const ram = details.ram
+    const storage = details.storage
+    const budget = details.budget
+
+    if (os === "WINDOWS") {
+        let laptopData = []
+        let laptopDataTwo = []
+        let laptopDataThree = []
+        let finalLaptopData = []
+        let query = {os: "Windows"}
+        await laptops.find(query).forEach(laptop => {
+            laptopData.push(laptop)
+        }).then(async () => {
+            laptopData.forEach(laptop => {
+                if (ram === '4' && laptop.ram_gb === '4 GB GB') {
+                    laptopDataTwo.push(laptop)
+                } else if (ram === '8' && laptop.ram_gb === '8 GB GB') {
+                    laptopDataTwo.push(laptop)
+                } else if (ram === '16' && laptop.ram_gb === '16 GB GB') {
+                    laptopDataTwo.push(laptop)
+                } else if (ram === '32' && laptop.ram_gb === '32 GB GB') {
+                    laptopDataTwo.push(laptop)
+                } else if (ram === '64' && laptop.ram_gb === '64 GB GB') {
+                    laptopDataTwo.push(laptop)
+                }
+            })
+            laptopDataTwo.forEach(laptop => {
+                if (storage === "256" && laptop.ssd === "256 GB") {
+                    laptopDataThree.push(laptop)
+                } else if (storage === "512" && laptop.ssd === "512 GB") {
+                    laptopDataThree.push(laptop)
+                } else if (storage === "1024" && laptop.ssd === "1024 GB") {
+                    laptopDataThree.push(laptop)
+                }
+            })
+            laptopDataThree.forEach(laptop => {
+                let price = Math.floor(laptop.latest_price / 10) - 1000
+                if (parseInt(budget) >= price) {
+                    finalLaptopData.push(laptop)
+                }
+            })
+        }).then(() => {
+            console.log(finalLaptopData)
+            //TODO: Send finalLaptopData the client to display in a web page
+        })
+    }
+})
+
+// Start Server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
-
-
-/*
-async function run() {
-    try {
-        const database = client.db('laptops');
-        const laptops = database.collection('laptops');
-        // Query for a movie that has the title 'Back to the Future'
-        const query = {processor_brand: 'AMD'};
-        const laptop = await laptops.findOne(query);
-        console.log(laptop);
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
-}
-
-run().catch(console.dir);
- */
 
 
 

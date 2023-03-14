@@ -1,11 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Express Server</title>
+    <title>Laptop Calculator</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<h1>Hello, World!</h1>
+<div id="main-page" class="container">
+    <div class="wrapper">
+        <ul id="steps" class="steps">
+            <li class="is-active">Operating System</li>
+            <li>Ram Requirements</li>
+            <li>Storage Requirements</li>
+            <li>Budget</li>
+        </ul>
+        <form class="form-wrapper" id="form">
+            <fieldset id="os" class="section is-active">
+                <h3>Operating System<br>Do you prefer Windows or macOS?</h3>
+                <div class="row cf" style="display: flex; justify-content: center; align-items: center;">
+                    <div class="four col">
+                        <input type="radio" name="r1" id="r1" checked>
+                        <label for="r1">
+                            <h4>Windows</h4>
+                        </label>
+                    </div>
+                    <div class="four col">
+                        <input type="radio" name="r1" id="r2"><label for="r2">
+                        <h4>macOS</h4>
+                    </label>
+                    </div>
+                </div>
+                <br>
+                <div class="button" style="">Continue</div>
+            </fieldset>
+            <fieldset id="ram" class="section">
+                <h3>Ram Requirements<br>How much ram do you require?</h3>
+                <label for="ram-reqs">Required Amount:</label>
+                <select name="ram-reqs" id="ram-reqs">
+                    <option value="4">4 GB</option>
+                    <option value="8">8 GB</option>
+                    <option value="16">16 GB</option>
+                    <option value="32">32 GB</option>
+                    <option value="64">64 GB</option>
+                </select>
+                <br><br>
+                <div class="button">Continue</div>
+                <br><br><br><br><br><br>
+                <div class="button"
+                     style="position:absolute; bottom:0; left: 10px; width:30px; margin-left:auto; margin-right:auto;">
+                    Back
+                </div>
+            </fieldset>
+            <fieldset id="storage" class="section">
+                <h3>Storage Requirements<br>How much storage do you require? (HDD)</h3>
+                <label for="storage-reqs">Required Amount:</label>
+                <select name="storage-reqs" id="storage-reqs">
+                    <option value="256">256 GB</option>
+                    <option value="512">512 GB</option>
+                    <option value="1024">1024 GB</option>
+                </select>
+                <br><br>
+                <div class="button">Continue</div>
+                <br><br><br><br><br><br>
+                <div class="button"
+                     style="position:absolute; bottom:0; left: 10px; width:30px; margin-left:auto; margin-right:auto;">
+                    Back
+                </div>
+            </fieldset>
+            <fieldset id="budget-section" class="section">
+                <h3>Budget<br>What is your budget?</h3>
+                <label for="budget">Budget:</label>
+                <input type="number" id="budget" name="budget" placeholder="2000" value="2000" required>
+                <br><br>
+                <div class="button">Submit</div>
+                <br><br><br><br><br><br>
+                <div class="button"
+                     style="position:absolute; bottom:0; left: 10px; width:30px; margin-left:auto; margin-right:auto;">
+                    Back
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
