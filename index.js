@@ -74,20 +74,20 @@ app.post('/', async (req, res) => {
             laptopData.push(laptop)
         }).then(async () => {
             laptopData.forEach(laptop => {
-                if (ram === '4' && laptop.ram_gb === '4 GB GB') {
+                if (ram === '4' && (laptop.ram_gb === '4 GB GB' || laptop.ram_gb === '8 GB GB' || laptop.ram_gb === "16 GB GB" || laptop.ram_gb === "32 GB GB" || laptop.ram_gb === "64 GB GB")) {
                     laptopDataTwo.push(laptop)
-                } else if (ram === '8' && laptop.ram_gb === '8 GB GB') {
+                } else if (ram === '8' && (laptop.ram_gb === '8 GB GB' || laptop.ram_gb === "16 GB GB" || laptop.ram_gb === "32 GB GB" || laptop.ram_gb === "32 GB GB" || laptop.ram_gb === "64 GB GB")) {
                     laptopDataTwo.push(laptop)
-                } else if (ram === '16' && laptop.ram_gb === '16 GB GB') {
+                } else if (ram === '16' && (laptop.ram_gb === '16 GB GB' || laptop.ram_gb === "32 GB GB" || laptop.ram_gb === "64 GB GB")) {
                     laptopDataTwo.push(laptop)
-                } else if (ram === '32' && laptop.ram_gb === '32 GB GB') {
+                } else if (ram === '32' && (laptop.ram_gb === '32 GB GB' || laptop.ram_gb === "64 GB GB")) {
                     laptopDataTwo.push(laptop)
-                } else if (ram === '64' && laptop.ram_gb === '64 GB GB') {
+                } else if (ram === '64' && (laptop.ram_gb === '64 GB GB')) {
                     laptopDataTwo.push(laptop)
                 }
             })
             laptopDataTwo.forEach(laptop => {
-                if (storage === "256" && laptop.ssd === "256 GB") {
+                if (storage === "256" && laptop.ssd === "256 GB" || laptop.ssd === "") {
                     laptopDataThree.push(laptop)
                 } else if (storage === "512" && laptop.ssd === "512 GB") {
                     laptopDataThree.push(laptop)
@@ -102,7 +102,9 @@ app.post('/', async (req, res) => {
                 }
             })
         }).then(() => {
-            console.log(finalLaptopData)
+            finalLaptopData.forEach(laptop => {
+                console.log(laptop.brand + ' ' + laptop.model + ' (' + laptop.ram_gb.replace("GB", "") + 'GB DDR4 Ram,' + storage + 'GB SSD Storage) ')
+            })
             //TODO: Send finalLaptopData the client to display in a web page
         })
     }
@@ -112,9 +114,3 @@ app.post('/', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
-
-
-
-
-
-

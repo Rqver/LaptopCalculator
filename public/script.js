@@ -19,14 +19,6 @@ $(document).ready(function () {
             if (document.getElementById("r1").checked) {
                 os = "WINDOWS"
             } else {
-                os = "MAC"
-            }
-        }
-
-        if (document.getElementById("r1")) {
-            if (document.getElementById("r1").checked) {
-                os = "WINDOWS"
-            } else {
                 alert("macOS is not currently supported.\nCheck back soon!")
                 return;
             }
@@ -51,7 +43,9 @@ $(document).ready(function () {
         }
 
         if (button.get()[0].innerHTML.includes("Submit")) {
-            $("main-page").hide()
+            document.getElementById("main-page").style.display = "none";
+            document.getElementById("results-page").style.display = "inline";
+
             await fetch('http://localhost:3000/', {
                 method: 'POST', headers: {
                     "Content-Type": "application/json",
