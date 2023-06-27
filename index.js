@@ -30,7 +30,7 @@ import express from 'express';
 import {MongoClient} from 'mongodb';
 import path from 'path';
 
-const uri = "mongodb+srv://lensboy007:bgIVuw4HTJXp3bGa@cluster0.nkap6xj.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://lensboy007:bgIVuw4HTJXp3bGa@cluster0.nkap6xj.mongodb.net/?retryWrites=true&w=majority"; // I know... Couldn't be bothered setting up an env, only going to be used for this one school project.
 const client = new MongoClient(uri);
 const app = express();
 const port = 3000;
